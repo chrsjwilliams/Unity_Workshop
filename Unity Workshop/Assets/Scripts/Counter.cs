@@ -37,7 +37,7 @@ public class Counter : MonoBehaviour
         value = value + i;
 
         // Checks if we are larger than the max value
-        if(value > maxValue)
+        if(value >= maxValue)
         {
             value = maxValue;
             upButton.interactable = false;
@@ -49,7 +49,7 @@ public class Counter : MonoBehaviour
         }
 
         // Checks if we are smaller than the min value
-        if(value < minValue)
+        if(value <= minValue)
         {
             value = minValue;
             downButton.interactable = false;
