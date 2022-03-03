@@ -2182,3 +2182,4 @@ Received Import Request.
 Start importing Assets/Fonts/ITC - ITCAvantGardePro-Demi SDF.asset using Guid(5691911f1e508471c9d45b497c48f058) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb485a47e487dd9f22a3d952ab12d417') in 0.028485 seconds 
   Import took 0.031698 seconds .
 
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
