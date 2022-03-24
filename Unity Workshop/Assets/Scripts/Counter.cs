@@ -12,8 +12,9 @@ using TMPro;
 /// to import images for your up button and your down button
 /// 
 /// </summary>
-
-public class Counter : MonoBehaviour
+// All our Pages are children of the Page class allow us access to any
+// functions or variables that are either marked public or protected.
+public class Counter : Page
 {
     public Button upButton;
     public Button downButton;

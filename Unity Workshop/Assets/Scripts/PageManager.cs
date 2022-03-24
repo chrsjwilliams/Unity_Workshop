@@ -8,9 +8,9 @@ using UnityEngine;
 /// </summary>
 public class PageManager : MonoBehaviour
 {
-    // We store our CanvasGroups in a list so we can iterate over them and preform
+    // We store our Pages in a list so we can iterate over them and preform
     // group operations easily.
-    public List<CanvasGroup> pages;
+    public List<Page> pages;
 
     // stores the current index of the page being dislpayed.
     // The first pags is index 0 and the last page is index Count - 1
@@ -58,34 +58,16 @@ public class PageManager : MonoBehaviour
         {
             if(j == currentPage)
             {
-                ShouldShowPage(true, pages[j]);
+                pages[j].ShowPage(true);
             }
             else
             {
-                ShouldShowPage(false, pages[j]);
+                pages[j].ShowPage(false);
             }
         }
     }
 
-    // This function takes in a bool variable on if we should show the page or not,
-    // and the page we are changing the visibility for
-    public void ShouldShowPage(bool show, CanvasGroup page)
-    {
-        // If show is true, set the page's alpha to 1, interactable to true,
-        // and blocksraycasts to true, otherwise do the opposite.
-        if(show)
-        {
-            page.alpha = 1;
-            page.interactable = true;
-            page.blocksRaycasts = true;
-        }
-        else
-        {
-            page.alpha = 0;
-            page.interactable = false;
-            page.blocksRaycasts = false;
-        }
-    }
+    
 
     // Update is called once per frame
     void Update()
