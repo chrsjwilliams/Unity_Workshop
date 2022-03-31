@@ -16,9 +16,14 @@ public class PageManager : MonoBehaviour
     // The first pags is index 0 and the last page is index Count - 1
     int currentPage = 0;
 
+    int previousPage;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        // Hide all the pages at the beginning of the application
+        HideAllPages();
         // Shows the first page when the application starts.
         ShowPageIndex(0);
     }
@@ -31,6 +36,10 @@ public class PageManager : MonoBehaviour
     /// move forward or backward  one page at a time.</param>
     public void ShowPageIndex(int i)
     {
+        // assign previous page the current page at the top since current
+        // page will be changing in a few lines of code
+        previousPage = currentPage;
+
         //  Add th incoming value to our curent page index
         currentPage = currentPage + i;
 
@@ -46,27 +55,27 @@ public class PageManager : MonoBehaviour
             currentPage = pages.Count - 1;
         }
 
-        // This is a for loop.
-        // It is made up of three parts.
-        //      1.  Initializing the looping variable:  int j = 0
-        //      2.  Setting loop condition:             j < pages.Count
-        //      3.  Command to execute after loop:      j++
+        // Get the data from the page we just exited then hide it
+        int data = pages[previousPage].OnExit();
+        pages[previousPage].ShowPage(false);
 
-        // Here we loop over every page, if the index is equal to our current page,
-        // Then we show that page, otherwise we hide that page.
-        for(int j = 0; j < pages.Count; j++)
-        {
-            if(j == currentPage)
-            {
-                pages[j].ShowPage(true);
-            }
-            else
-            {
-                pages[j].ShowPage(false);
-            }
-        }
+        // Send the data we got from the previous page and
+        // show the current page
+        pages[currentPage].OnEnter(data);
+        pages[currentPage].ShowPage(true);
     }
 
+    /// <summary>
+    /// This function hides all the pages in our pages list
+    /// </summary>
+    public void HideAllPages()
+    {
+        for(int i = 0; i < pages.Count; i++)
+        {
+            pages[i].ShowPage(false);
+        }
+
+    }
     
 
     // Update is called once per frame

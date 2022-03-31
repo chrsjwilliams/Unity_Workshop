@@ -17,22 +17,43 @@ public class Page : MonoBehaviour
 
     /// <summary>
     /// This function should be called when we show a page
+    ///
+    /// For not we are passing in an integret value to
+    /// update the number of Draggable UI Elements on the
+    /// Objects page.
+    /// 
     /// </summary>
-    public void OnEnter()
+    public virtual void OnEnter(int numberOfObjects)
     {
         
     }
 
+    ///
+    /// Functions and return types:
+    ///     Every function must indicate what they return.
+    ///     In many cases we don't want an output value for our function,
+    ///     so it's return type is "void." in the case of our OnExit function
+    ///     or a function like CheckIfLoggedIn, we want to be given back a
+    ///     value so we can use the output of that function to infrom how our
+    ///     application should operate.
+    ///
+    
     /// <summary>
     /// This function should be called when we stop show a page
+    ///
+    /// This function returns a value that is then passed into
+    /// the next page's OnEnter function
+    /// 
     /// </summary>
-    public void OnExit()
+    public virtual int OnExit()
     {
-        
+        // we return int.MinValue to let us know if a page
+        // has not yet implemented its own OnExit function
+        return int.MinValue;
     }
 
     /// <summary>
-    /// This fucntionwas moved from our Page Maanger. This controls
+    /// This fucntion was moved from our Page Maanger. This controls
     /// how a pageappears and disappears
     /// </summary>
     /// <param name="show"></param>

@@ -14,19 +14,11 @@ public class DraggableUIManager : Page
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            // Instantiate is a function that creates a new GameObject. In
-            // this scenario we create a new draggableUIPrefab and make its
-            // parent the objectHolder GameObject so that it is a child of
-            // that page in the heierarchy. 
-            UIDragger newDraggable = Instantiate(draggableUIPrefab, objectHolder);
-            draggableUIElements.Add(newDraggable);
-        }
         
     }
 
-    public void OnEnter(int numOfObjects)
+
+    public override void OnEnter(int numOfObjects)
     {
         if (numOfObjects < 0)
         {
@@ -34,11 +26,51 @@ public class DraggableUIManager : Page
             return;
         }
 
-
-        if (numOfObjects == draggableUIElements.Count)
+        // if the value we are given is the same as the number of
+        // objects in our list, exit the function early
+        if(numOfObjects == draggableUIElements.Count)
         {
             return;
         }
+
+        // find the difference between the data passed in and the number
+        // of objects we have in our list
+        int difference = numOfObjects - draggableUIElements.Count;
+
+        // if difference is positive, we need to make more draggable ui elements
+        // if difference is negative, we need to remove draggable ui elements
+
+        if (difference > 0)
+        {
+            // We need to make more draggable UI elements
+            for (int i = 0; i < difference; i++)
+            {
+                // Instantiate is a function that creates a new GameObject. In
+                // this scenario we create a new draggableUIPrefab and make its
+                // parent the objectHolder GameObject so that it is a child of
+                // that page in the heierarchy. 
+                UIDragger newDraggable = Instantiate(draggableUIPrefab, objectHolder);
+                draggableUIElements.Add(newDraggable);
+            }
+        }
+        else
+        {
+            // create a list of elements to delete
+            List<UIDragger> elementsToDelete = new List<UIDragger>();
+            for(int i = 0; i < Mathf.Abs(difference); i++)
+            {
+                elementsToDelete.Add(draggableUIElements[i]);
+            }
+
+            foreach(UIDragger element in elementsToDelete)
+            {
+                // remove element form the list before destroying it
+                draggableUIElements.Remove(element);
+                Destroy(element.gameObject);
+            }
+        }
+
+
     }
 
     // Update is called once per frame

@@ -32,6 +32,11 @@ public class Counter : Page
         counter.text = "Welcome! Press a button!";
     }
 
+    public override int OnExit()
+    {
+        return value;
+    }
+
     public void UpdateCounter(int i)
     {
         // assigns value based on incoming input
