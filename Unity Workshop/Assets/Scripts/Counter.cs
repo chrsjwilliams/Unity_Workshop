@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,8 @@ using TMPro;
 // functions or variables that are either marked public or protected.
 public class Counter : Page
 {
+    public static event Action<int> ValueChanged;
+
     public Button upButton;
     public Button downButton;
 
@@ -32,10 +35,10 @@ public class Counter : Page
         counter.text = "Welcome! Press a button!";
     }
 
-    public override int OnExit()
-    {
-        return value;
-    }
+    //public override int OnExit()
+    //{
+    //    return value;
+    //}
 
     public void UpdateCounter(int i)
     {
@@ -74,6 +77,11 @@ public class Counter : Page
         else
         {
             counter.text = value + " clicks";
+        }
+
+        if(ValueChanged != null)
+        {
+            ValueChanged.Invoke(value);
         }
     }
 

@@ -9,18 +9,29 @@ public class DraggableUIManager : Page
     [SerializeField] List<UIDragger> draggableUIElements = new List<UIDragger>();
     [SerializeField] RectTransform objectHolder;
     [SerializeField] UIDragger draggableUIPrefab;
-    
+
+    [SerializeField] int thingsToMake = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Counter.ValueChanged += OnValueChanged;
+    }
+
+    private void OnDestroy()
+    {
+        Counter.ValueChanged -= OnValueChanged;
     }
 
 
+    public void OnValueChanged(int value)
+    {
+        thingsToMake = value;
+    }
+
     public override void OnEnter(int numOfObjects)
     {
-        if (numOfObjects < 0)
+        if (thingsToMake < 0)
         {
             Debug.LogError("Negative Value given for numOfObjects");
             return;
@@ -28,14 +39,14 @@ public class DraggableUIManager : Page
 
         // if the value we are given is the same as the number of
         // objects in our list, exit the function early
-        if(numOfObjects == draggableUIElements.Count)
+        if(thingsToMake == draggableUIElements.Count)
         {
             return;
         }
 
         // find the difference between the data passed in and the number
         // of objects we have in our list
-        int difference = numOfObjects - draggableUIElements.Count;
+        int difference = thingsToMake - draggableUIElements.Count;
 
         // if difference is positive, we need to make more draggable ui elements
         // if difference is negative, we need to remove draggable ui elements
