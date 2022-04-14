@@ -18,6 +18,8 @@ public class PageManager : MonoBehaviour
 
     int previousPage;
 
+    [SerializeField] Timer timer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +49,7 @@ public class PageManager : MonoBehaviour
         if(currentPage  <= 0)
         {
             currentPage = 0;
+            timer.ResetTimer(10);
         }
 
         //  If we try to go too far forward we set our current page to the last page
